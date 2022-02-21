@@ -1,0 +1,15 @@
+.sac-container {
+    padding: 2rem 0;
+}
+
+.sac-section-title {
+    font-family: 'Nanum Gothic', sans-serif;
+    text-align: center;
+}
+
+.sac-section {
+    font-family: 'Noto Sans KR', sans-serif;
+    border: 1px solid #015b8d;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}

@@ -20,3 +20,17 @@
 .sac-section p:only-child {
     margin-bottom: 0;
 }
+
+.sac-form {
+    display: flex;
+    flex-direction: column;
+}
+.sac-form .sac-form-el {
+    margin-bottom: 0.5rem;
+}
+.sac-form .sac-form-el input[type=number] {
+    text-align: right;
+}
+.sac-form button {
+    margin-left: auto;
+}

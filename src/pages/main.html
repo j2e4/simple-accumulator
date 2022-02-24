@@ -17,26 +17,26 @@
     <div id="container" class="sac-container">
         <section class="col-xl-6 col-lg-8 col-md-8 col-sm-10 mx-auto sac-section">
             <h2 class="sac-section-title">저축률에 따른 기간별 자산규모 측정기</h1>
-            <form id="information-form">
-                <div>
-                    <label for="income">월소득(만원): </label>
-                    <input type="number" id="income" />
+            <form id="information-form" class="sac-form">
+                <div class="sac-form-el">
+                    <label for="income" class="form-label">월소득(만원): </label>
+                    <input type="number" id="income" class="form-control" />
                 </div>
-                <div>
-                    <label for="savings-rate">저축률(%): </label>
-                    <input type="number" id="savings-rate" />
+                <div class="sac-form-el">
+                    <label for="savings-rate" class="form-label">저축률(%): </label>
+                    <input type="number" id="savings-rate" class="form-control" />
                 </div>
-                <div>
-                    <input type="radio" id="month" name="period" checked />
-                    <label for="month">월별</label>
-                    <input type="radio" id="year" name="period" disabled />
-                    <label for="year">연도별</label>
+                <div class="sac-form-el">
+                    <input type="radio" id="month" name="period" class="form-check-input" checked />
+                    <label for="month" class="form-check-label">월별</label>
+                    <input type="radio" id="year" name="period" class="form-check-input" disabled />
+                    <label for="year" class="form-check-label">연도별</label>
                 </div>
                 <button type="submit" class="btn btn-primary btn-sac-primary">측정하기</button>
             </form>
         </section>
         <section id="res-section" class="col-xl-10 col-lg-10 col-md-10 col-sm-12 mx-auto sac-section">
-            <p>내용을 입력하고 측정하기 버튼을 클릭해주세요!</p>
+            <p>내용을 입력하고 <strong>측정하기</strong> 버튼을 클릭해주세요!</p>
         </section>
     </div>
     <script src="../scripts/main.js" charset="utf-8"></script>

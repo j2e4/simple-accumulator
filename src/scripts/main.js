@@ -14,6 +14,13 @@ form.addEventListener('submit', (evt) => {
     createResTable(income * savingsRate / 100);
 });
 
+/**
+ * @param {number} va
+ * @param {string} label
+ * @param {number} [min]
+ * @param {number} [max]
+ * @returns {boolean}
+ */
 function invalidInputNumber(va, label, min, max) {
     if (!va) {
         alert(`${label} 값이 필요합니다.`);
@@ -40,20 +47,15 @@ function createResTable(monthlySavings) {
     section.append(p, table);
 
     function createThead() {
-        const thead = document.createElement('thead');
-        const tr = document.createElement('tr');
         const now = new Date();
+        const sacThead = createSacThead(1, 12);
 
-        for (let i = 0; i < 12; i++) {
+        sacThead.forEachTd(0, td => {
             now.setMonth(now.getMonth() + 1);
-
-            const td = document.createElement('td');
             td.innerHTML = `${now.getFullYear()}-` +
                 `${now.getMonth() + 1}`.padStart(2, '0');
-            tr.appendChild(td);
-        }
-        thead.appendChild(tr);
-        return thead;
+        });
+        return sacThead.getThead();
     }
 
     function createTbody() {

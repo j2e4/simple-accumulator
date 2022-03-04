@@ -59,15 +59,11 @@ function createResTable(monthlySavings) {
     }
 
     function createTbody() {
-        const tbody = document.createElement('tbody');
-        const tr = document.createElement('tr');
+        const scaTbody = createSacTbody(1, 12);
 
-        for (let i = 0; i < 12; i++) {
-            const td = document.createElement('td');
-            td.innerHTML = monthlySavings * (i + 1);
-            tr.appendChild(td);
-        }
-        tbody.appendChild(tr);
-        return tbody;
+        scaTbody.forEachTd(0, (td, i) => {
+            td.innerHTML = `${monthlySavings * (i + 1)}`;
+        });
+        return scaTbody.getTbody();
     }
 }

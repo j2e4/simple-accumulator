@@ -1,21 +1,21 @@
-class SacThead extends SacTableElement {
+class SacTbody extends SacTableElement {
     /**
      * @param {number} [rowLength]
      * @param {number} [columnLength]
      */
     constructor(rowLength, columnLength) {
         super();
-        this.thead = document.createElement('thead');
+        this.tbody = document.createElement('tbody');
         this._init(rowLength, columnLength);
     }
 
-    getThead() {
-        return this.thead;
+    getTbody() {
+        return this.tbody;
     };
 
     appendTr() {
         super.appendTr();
-        this.thead.append(this.rows[this.rows.length - 1]);
+        this.tbody.append(this.rows[this.rows.length - 1]);
     }
 
     _init(rowLen, colLen) {
@@ -30,6 +30,6 @@ class SacThead extends SacTableElement {
     }
 }
 
-function createSacThead(rowLength, columnLength) {
-    return new SacThead(rowLength, columnLength);
+function createSacTbody(rowLength, columnLength) {
+    return new SacTbody(rowLength, columnLength);
 }

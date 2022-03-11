@@ -16,6 +16,31 @@
 .sac-section:not(:first-child) {
     margin-top: 2rem;
 }
+.sac-section .sac-table-outer {
+    overflow: auto;
+    border: 1px solid lightgray;
+}
+.sac-section .sac-table-outer table {
+    margin: 0 5px;
+    min-width: calc(100% - 10px);
+}
+.sac-section .sac-table-outer table thead {
+    border-bottom: 1px solid lightgray;
+}
+.sac-section .sac-table-outer table td {
+    white-space: nowrap;
+    padding: 5px 10px;
+    position: relative;
+}
+.sac-section .sac-table-outer table td.sac-number {
+    text-align: right;
+}
+.sac-section .sac-table-outer table td:not(:last-child)::after {
+    position: absolute;
+    right: 0;
+    content: '|';
+    color: lightgray;
+}
 
 .sac-section p:only-child {
     margin-bottom: 0;

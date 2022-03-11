@@ -5,13 +5,16 @@ form.addEventListener('submit', (evt) => {
 
     const income = +document.querySelector('input#income')?.value;
     const savingsRate = +document.querySelector('input#savings-rate')?.value;
+    const months = +document.querySelector('input#months')?.value;
 
     if (invalidInputNumber(income, '월소득', 0))
         return;
     if (invalidInputNumber(savingsRate, '저축률', 0, 100))
         return;
+    if (invalidInputNumber(months, '기간', 12, 1200))
+        return;
 
-    createResTable(income * savingsRate / 100);
+    createResTable(income * savingsRate / 100, months);
 });
 
 /**
@@ -35,20 +38,24 @@ function invalidInputNumber(va, label, min, max) {
     }
 }
 
-function createResTable(monthlySavings) {
+/**
+ * @param {number} monthlySavings
+ * @param {number} months
+ */
+function createResTable(monthlySavings, months) {
     const section = document.querySelector('#res-section');
-    const p = document.querySelector('#res-section p');
     const table = document.createElement('table');
-    
+
     section.innerHTML = '';
     // TODO 단위가 넘어가는 경우
-    p.innerHTML = `계산된 한 달 저축액은 ${monthlySavings}만원입니다.`;
     table.append(createThead(), createTbody());
-    section.append(p, table);
+    section.innerHTML = `` +
+        `<p>계산된 한 달 저축액은 ${monthlySavings}만원입니다.</p>` +
+        `<div class="sac-table-outer">` + table.outerHTML + `</div>`;
 
     function createThead() {
         const now = new Date();
-        const sacThead = createSacThead(1, 12);
+        const sacThead = createSacThead(1, months);
 
         sacThead.forEachTd(0, td => {
             now.setMonth(now.getMonth() + 1);
@@ -59,9 +66,10 @@ function createResTable(monthlySavings) {
     }
 
     function createTbody() {
-        const scaTbody = createSacTbody(1, 12);
+        const scaTbody = createSacTbody(1, months);
 
         scaTbody.forEachTd(0, (td, i) => {
+            td.classList.add('sac-number')
             td.innerHTML = `${monthlySavings * (i + 1)}`;
         });
         return scaTbody.getTbody();

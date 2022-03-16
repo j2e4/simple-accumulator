@@ -50,7 +50,7 @@ function createResTable(monthlySavings, months) {
     // TODO 단위가 넘어가는 경우
     table.append(createThead(), createTbody());
     section.innerHTML = `` +
-        `<p>계산된 한 달 저축액은 ${monthlySavings}만원입니다.</p>` +
+        `<p>계산된 한 달 저축액은 ${getNumberWithComma(monthlySavings)}만원입니다.</p>` +
         `<div class="sac-table-outer">` + table.outerHTML + `</div>`;
 
     function createThead() {
@@ -70,8 +70,17 @@ function createResTable(monthlySavings, months) {
 
         scaTbody.forEachTd(0, (td, i) => {
             td.classList.add('sac-number')
-            td.innerHTML = `${monthlySavings * (i + 1)}`;
+            td.innerHTML = `${getNumberWithComma(monthlySavings * (i + 1))}`;
         });
         return scaTbody.getTbody();
+    }
+
+    function getNumberWithComma(number) {
+        const strings = number.toString().split('.');
+        const intWithComma = strings
+            .shift()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+        return strings.length ? `${intWithComma}.${strings.shift()}` : intWithComma;
     }
 }

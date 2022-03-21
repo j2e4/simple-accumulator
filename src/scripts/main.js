@@ -1,20 +1,34 @@
 const form = document.querySelector('form');
+const label = document.querySelector('label[for=period-input]');
+const radios = document.querySelectorAll('input[name=period]');
+let yearSelected;
 
 form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const income = +document.querySelector('input#income')?.value;
     const savingsRate = +document.querySelector('input#savings-rate')?.value;
-    const months = +document.querySelector('input#months')?.value;
+    const periodInput = +document.querySelector('input#period-input')?.value;
+    const periodType = document.querySelector('input[name=period]:checked').value;
 
     if (invalidInputNumber(income, '월소득', 0))
         return;
     if (invalidInputNumber(savingsRate, '저축률', 0, 100))
         return;
-    if (invalidInputNumber(months, '기간', 12, 1200))
+    if (invalidInputNumber(periodInput, '기간', 12, 1200))
         return;
 
-    createResTable(income * savingsRate / 100, months);
+    yearSelected = periodType === PeriodType.year;
+    createResTable(income * savingsRate / 100, periodInput);
+});
+
+radios.forEach(radio => {
+    radio.addEventListener('input', (evt) => {
+        if (evt.target.value === PeriodType.month)
+            label.innerHTML = '기간(개월): ';
+        else if (evt.target.value === PeriodType.year)
+            label.innerHTML = '기간(년): ';
+    });
 });
 
 /**
@@ -39,38 +53,46 @@ function invalidInputNumber(va, label, min, max) {
 }
 
 /**
- * @param {number} monthlySavings
- * @param {number} months
+ * @param {number} amount
+ * @param {number} period
  */
-function createResTable(monthlySavings, months) {
+function createResTable(amount, period) {
     const section = document.querySelector('#res-section');
     const table = document.createElement('table');
+
+    const unitText = yearSelected ? '연간' : '한 달';
+    if (yearSelected)
+        amount *= 12;
 
     section.innerHTML = '';
     // TODO 단위가 넘어가는 경우
     table.append(createThead(), createTbody());
     section.innerHTML = `` +
-        `<p>계산된 한 달 저축액은 ${getNumberWithComma(monthlySavings)}만원입니다.</p>` +
+        `<p>계산된 ${unitText} 저축액은 ${getNumberWithComma(amount)}만원입니다.</p>` +
         `<div class="sac-table-outer">` + table.outerHTML + `</div>`;
 
     function createThead() {
         const now = new Date();
-        const sacThead = createSacThead(1, months);
+        const sacThead = createSacThead(1, period);
 
         sacThead.forEachTd(0, td => {
-            now.setMonth(now.getMonth() + 1);
-            td.innerHTML = `${now.getFullYear()}-` +
-                `${now.getMonth() + 1}`.padStart(2, '0');
+            if (yearSelected)
+                now.setFullYear(now.getFullYear() + 1);
+            else
+                now.setMonth(now.getMonth() + 1);
+            td.innerHTML = `${now.getFullYear()}`;
+            if (!yearSelected)
+                td.innerHTML += '-' + `${now.getMonth() + 1}`.padStart(2, '0');
         });
         return sacThead.getThead();
     }
 
     function createTbody() {
-        const scaTbody = createSacTbody(1, months);
+        const scaTbody = createSacTbody(1, period);
 
         scaTbody.forEachTd(0, (td, i) => {
             td.classList.add('sac-number')
-            td.innerHTML = `${getNumberWithComma(monthlySavings * (i + 1))}`;
+            td.innerHTML = `${getNumberWithComma(amount * (i + 1))}`;
         });
         return scaTbody.getTbody();
     }

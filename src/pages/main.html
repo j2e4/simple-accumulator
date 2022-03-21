@@ -27,13 +27,13 @@
                     <input type="number" id="savings-rate" class="form-control" />
                 </div>
                 <div class="sac-form-el">
-                    <label for="months" class="form-label">기간(개월): </label>
-                    <input type="number" id="months" class="form-control" value="12"/>
+                    <label for="period-input" class="form-label">기간(개월): </label>
+                    <input type="number" id="period-input" class="form-control" value="12" />
                 </div>
                 <div class="sac-form-el">
-                    <input type="radio" id="month" name="period" class="form-check-input" checked />
+                    <input type="radio" id="month" name="period" class="form-check-input" value="0" checked />
                     <label for="month" class="form-check-label">월별</label>
-                    <input type="radio" id="year" name="period" class="form-check-input" disabled />
+                    <input type="radio" id="year" name="period" class="form-check-input" value="1" />
                     <label for="year" class="form-check-label">연도별</label>
                 </div>
                 <button type="submit" class="btn btn-primary btn-sac-primary">측정하기</button>
@@ -43,6 +43,7 @@
             <p>내용을 입력하고 <strong>측정하기</strong> 버튼을 클릭해주세요!</p>
         </section>
     </div>
+    <script src="../scripts/common/ConstantValues.js" charset="utf-8"></script>
     <script src="../scripts/elements/TableElement.js" charset="utf-8"></script>
     <script src="../scripts/elements/Thead.js" charset="utf-8"></script>
     <script src="../scripts/elements/Tbody.js" charset="utf-8"></script>

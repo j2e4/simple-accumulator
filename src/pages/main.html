@@ -18,6 +18,12 @@
         <section class="col-xl-6 col-lg-8 col-md-8 col-sm-10 mx-auto sac-section">
             <h2 class="sac-section-title">저축률에 따른 기간별 자산규모 측정기</h2>
             <form id="information-form" class="sac-form">
+                <div class="sac-form-el sac-form-radio-group">
+                    <input type="radio" id="month" name="period" class="form-check-input" value="0" checked />
+                    <label for="month" class="form-check-label">월별</label>
+                    <input type="radio" id="year" name="period" class="form-check-input" value="1" />
+                    <label for="year" class="form-check-label">연도별</label>
+                </div>
                 <div class="sac-form-el">
                     <label for="income" class="form-label">월소득(만원): </label>
                     <input type="number" id="income" class="form-control" placeholder="191" autofocus />
@@ -29,12 +35,6 @@
                 <div class="sac-form-el">
                     <label for="period-input" class="form-label">기간(개월): </label>
                     <input type="number" id="period-input" class="form-control" placeholder="12" />
-                </div>
-                <div class="sac-form-el">
-                    <input type="radio" id="month" name="period" class="form-check-input" value="0" checked />
-                    <label for="month" class="form-check-label">월별</label>
-                    <input type="radio" id="year" name="period" class="form-check-input" value="1" />
-                    <label for="year" class="form-check-label">연도별</label>
                 </div>
                 <button type="submit" class="btn btn-primary btn-sac-primary">측정하기</button>
             </form>

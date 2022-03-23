@@ -1,7 +1,8 @@
+const periodManager = new PeriodManager(
+    document.querySelector('label[for=income]'),
+    document.querySelector('label[for=period-input]'),
+    document.querySelectorAll('input[name=period]'));
 const form = document.querySelector('form');
-const label = document.querySelector('label[for=period-input]');
-const radios = document.querySelectorAll('input[name=period]');
-let yearSelected;
 
 form.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -15,20 +16,11 @@ form.addEventListener('submit', (evt) => {
         return;
     if (invalidInputNumber(savingsRate, '저축률', 0, 100))
         return;
-    if (invalidInputNumber(periodInput, '기간', 12, 1200))
+    if (invalidInputNumber(periodInput, '기간', periodManager.min, periodManager.max))
         return;
 
-    yearSelected = periodType === PeriodType.year;
+    periodManager.periodType = periodType;
     createResTable(income * savingsRate / 100, periodInput);
-});
-
-radios.forEach(radio => {
-    radio.addEventListener('input', (evt) => {
-        if (evt.target.value === PeriodType.month)
-            label.innerHTML = '기간(개월): ';
-        else if (evt.target.value === PeriodType.year)
-            label.innerHTML = '기간(년): ';
-    });
 });
 
 /**
@@ -60,15 +52,11 @@ function createResTable(amount, period) {
     const section = document.querySelector('#res-section');
     const table = document.createElement('table');
 
-    const unitText = yearSelected ? '연간' : '한 달';
-    if (yearSelected)
-        amount *= 12;
-
     section.innerHTML = '';
     // TODO 단위가 넘어가는 경우
     table.append(createThead(), createTbody());
     section.innerHTML = `` +
-        `<p>계산된 ${unitText} 저축액은 ${getNumberWithComma(amount)}만원입니다.</p>` +
+        `<p>계산된 ${periodManager.unitText} 저축액은 ${getNumberWithComma(amount)}만원입니다.</p>` +
         `<div class="sac-table-outer">` + table.outerHTML + `</div>`;
 
     function createThead() {
@@ -76,13 +64,8 @@ function createResTable(amount, period) {
         const sacThead = createSacThead(1, period);
 
         sacThead.forEachTd(0, td => {
-            if (yearSelected)
-                now.setFullYear(now.getFullYear() + 1);
-            else
-                now.setMonth(now.getMonth() + 1);
-            td.innerHTML = `${now.getFullYear()}`;
-            if (!yearSelected)
-                td.innerHTML += '-' + `${now.getMonth() + 1}`.padStart(2, '0');
+            now.setTime(periodManager.getNextTime(now));
+            td.innerHTML = periodManager.getTableText(now);
         });
         return sacThead.getThead();
     }

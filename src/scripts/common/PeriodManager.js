@@ -1,9 +1,9 @@
 class PeriodManager {
-    constructor($income, $label, $radios) {
-        /** @type {HTMLLabelElement} */
+    constructor($income, $period, $radios) {
+        /** @type {Object.<string, HTMLLabelElement>} */
         this.$income = $income;
-        /** @type {HTMLLabelElement} */
-        this.$label = $label;
+        /** @type {Object.<string, HTMLLabelElement>} */
+        this.$period = $period;
         /** @type {Array.<HTMLInputElement>} */
         this.$radios = $radios || [];
 
@@ -60,11 +60,15 @@ class PeriodManager {
         this.$radios.forEach($radio =>
             $radio.addEventListener('click', (evt) => {
                 if (evt.target.value === PeriodType.month) {
-                    this._render(this.$income, '월소득(만원): ');
-                    this._render(this.$label, '기간(개월): ');
+                    this._render(this.$income.$label, '월소득(만원): ');
+                    this.$income.$input.setAttribute('placeholder', MinimumIncome[PeriodType.month]);
+                    this._render(this.$period.$label, '기간(개월): ');
+                    this.$period.$input.setAttribute('placeholder', '12');
                 } else if (evt.target.value === PeriodType.year) {
-                    this._render(this.$income, '연소득(만원): ');
-                    this._render(this.$label, '기간(년): ');
+                    this._render(this.$income.$label, '연소득(만원): ');
+                    this.$income.$input.setAttribute('placeholder', MinimumIncome[PeriodType.year]);
+                    this._render(this.$period.$label, '기간(년): ');
+                    this.$period.$input.setAttribute('placeholder', '10');
                 }
             }));
     }

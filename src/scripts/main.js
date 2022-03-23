@@ -1,6 +1,12 @@
 const periodManager = new PeriodManager(
-    document.querySelector('label[for=income]'),
-    document.querySelector('label[for=period-input]'),
+    {
+        $label: document.querySelector('label[for=income]'),
+        $input: document.querySelector('input#income')
+    },
+    {
+        $label: document.querySelector('label[for=period-input]'),
+        $input: document.querySelector('input#period-input')
+    },
     document.querySelectorAll('input[name=period]'));
 const form = document.querySelector('form');
 

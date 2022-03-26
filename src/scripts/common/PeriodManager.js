@@ -1,8 +1,8 @@
 class PeriodManager {
     constructor($income, $period, $radios) {
-        /** @type {Object.<string, HTMLLabelElement>} */
+        /** @type {FormInputGroup} */
         this.$income = $income;
-        /** @type {Object.<string, HTMLLabelElement>} */
+        /** @type {FormInputGroup} */
         this.$period = $period;
         /** @type {Array.<HTMLInputElement>} */
         this.$radios = $radios || [];
@@ -60,20 +60,20 @@ class PeriodManager {
         this.$radios.forEach($radio =>
             $radio.addEventListener('click', (evt) => {
                 if (evt.target.value === PeriodType.month) {
-                    this._render(this.$income.$label, '월소득(만원): ');
-                    this.$income.$input.setAttribute('placeholder', MinimumIncome[PeriodType.month]);
-                    this._render(this.$period.$label, '기간(개월): ');
-                    this.$period.$input.setAttribute('placeholder', '12');
+                    this.$income.label = '월소득(만원): ';
+                    this.$income.placeholder = MinimumIncome[PeriodType.month];
+                    this.$period.label = '기간(개월): ';
+                    this.$period.placeholder = '12';
                 } else if (evt.target.value === PeriodType.year) {
-                    this._render(this.$income.$label, '연소득(만원): ');
-                    this.$income.$input.setAttribute('placeholder', MinimumIncome[PeriodType.year]);
-                    this._render(this.$period.$label, '기간(년): ');
-                    this.$period.$input.setAttribute('placeholder', '10');
+                    this.$income.label = '연소득(만원): ';
+                    this.$income.placeholder = MinimumIncome[PeriodType.year];
+                    this.$period.label = '기간(년): ';
+                    this.$period.placeholder = '10';
                 }
             }));
     }
 
-    _render($el, innerHtml) {
-        $el.innerHTML = innerHtml;
-    }
+    // _render($el, innerHtml) {
+    //     $el.innerHTML = innerHtml;
+    // }
 }

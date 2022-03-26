@@ -1,21 +1,17 @@
+const $income = new FormInputGroup('income'),
+    $periodInput = new FormInputGroup('period-input');
 const periodManager = new PeriodManager(
-    {
-        $label: document.querySelector('label[for=income]'),
-        $input: document.querySelector('input#income')
-    },
-    {
-        $label: document.querySelector('label[for=period-input]'),
-        $input: document.querySelector('input#period-input')
-    },
+    $income,
+    $periodInput,
     document.querySelectorAll('input[name=period]'));
 const form = document.querySelector('form');
 
 form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    const income = +document.querySelector('input#income')?.value;
+    const income = +$income.value;
     const savingsRate = +document.querySelector('input#savings-rate')?.value;
-    const periodInput = +document.querySelector('input#period-input')?.value;
+    const periodInput = +$periodInput.value;
     const periodType = document.querySelector('input[name=period]:checked').value;
 
     if (invalidInputNumber(income, '월소득', 0))

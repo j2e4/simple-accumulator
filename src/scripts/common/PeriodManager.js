@@ -50,10 +50,10 @@ class PeriodManager {
     }
 
     getTableText(now) {
-        const ret = [now.getFullYear()];
+        const ret = [`${now.getFullYear()}년`];
         if (this.type === PeriodType.month)
-            ret.push(`${now.getMonth() + 1}`.padStart(2, '0'));
-        return ret.join('-');
+            ret.push(`${now.getMonth() + 1}월`);
+        return ret.join(' ');
     }
 
     _watch() {
